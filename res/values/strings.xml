@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Music Cloud</string>
+    <string name="text_download_on_tab">DOWNLOAD</string>
+    <string name="text_music_cloud_on_tab">MUSIC CLOUD</string>
+</resources>

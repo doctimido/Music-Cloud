@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_for_tab_background">#4a545c</color>
+    <color name="color_for_selected_tab_line">#30ba71</color>
+    <color name="color_for_tab_text">#30ba71</color>
+</resources>

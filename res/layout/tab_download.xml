@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             style="@android:style/Widget.Holo.Tab"
+             android:layout_height="match_parent"
+             android:background="@drawable/tab_selector"
+        >
+
+    <TextView android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:text="@string/text_download_on_tab"
+              android:textColor="@color/color_for_tab_text"
+              android:gravity="center"
+              android:textSize="14sp"
+
+            />
+    </FrameLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.app.FragmentTabHost
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/color_for_tab_background"
+                >
+
+            <ImageView
+                    android:src="@drawable/note_new"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_weight="1"
+                    android:layout_margin="13dp"
+                    />
+
+            <TabWidget
+                    android:id="@android:id/tabs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:fadingEdge="none"
+                    android:showDividers="none"
+                    android:layout_weight="5"/>
+
+            <ImageView
+                    android:src="@drawable/menu"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:layout_margin="16dp"/>
+
+        </LinearLayout>
+
+
+
+        <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+
+    </LinearLayout>
+
+</android.support.v4.app.FragmentTabHost>
+
