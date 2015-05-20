@@ -11,14 +11,9 @@ public class SoundInfo implements Serializable {
 
     String title;
     String duration;
-
-    @SerializedName("artwork_url")
     String artworkUrl;
-    @SerializedName("download_url")
     String downloadUrl;
-    @SerializedName("stream_url")
     String streamUrl;
-    @SerializedName("likes_count")
     String likesCount;
 
     public SoundInfo(String title, String duration, String artworkUrl, String downloadUrl, String streamUrl, String likesCount) {

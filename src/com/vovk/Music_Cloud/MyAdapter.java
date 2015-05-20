@@ -46,6 +46,8 @@ public class MyAdapter extends ArrayAdapter<SoundInfo> implements Serializable {
 
         if (soundInfoItem != null) {
             likesQuantity.setText(soundInfoItem.getLikesCount());
+            textForSoundTitle.setText(soundInfoItem.getTitle());
+            lengthOfTheTrack.setText(soundInfoItem.getDuration());
         }
 
         return convertView;

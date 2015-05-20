@@ -28,10 +28,10 @@ public class GetSoundInfoList implements Serializable {
 
                 String title = obj.getString("title");
                 String duration = obj.getString("duration");
-                String artworkUrl = obj.getString("artworkUrl");
-                String downloadUrl = obj.getString("downloadUrl");
-                String streamUrl = obj.getString("streamUrl");
-                String likesCount = obj.getString("likesCount");
+                String artworkUrl = obj.getString("artwork_url");
+                String downloadUrl = obj.getString("download_url");
+                String streamUrl = obj.getString("stream_url");
+                String likesCount = obj.getString("likes_count");
 
                 list.add(new SoundInfo(title, duration, artworkUrl, downloadUrl, streamUrl, likesCount));
             }
