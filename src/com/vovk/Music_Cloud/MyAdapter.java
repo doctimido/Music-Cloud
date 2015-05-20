@@ -24,23 +24,23 @@ public class MyAdapter extends ArrayAdapter<SoundInfo> implements Serializable {
     private LayoutInflater inflater;
 
 
-    public MyAdapter(Context context, List<SoundInfo> objects) {
-        super(context, 0, objects);
+    public MyAdapter(Context context) {
+        super(context, 0);
         inflater = LayoutInflater.from(context);
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView==null){
-            convertView=inflater.inflate(R.layout.item_for_list_view,parent,false);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.item_for_list_view, parent, false);
         }
 
-        ImageView titlePicture=(ImageView)convertView.findViewById(R.id.titlePicture);
-        TextView  textForSoundTitle=(TextView)convertView.findViewById(R.id.textForSoundTitle);
-        TextView  likesQuantity=(TextView)convertView.findViewById(R.id.likesQuantity);
-        TextView  lengthOfTheTrack=(TextView)convertView.findViewById(R.id.lengthOfTheTrack);
-        TextView artistName=(TextView)convertView.findViewById(R.id.artistName);
+        ImageView titlePicture = (ImageView) convertView.findViewById(R.id.titlePicture);
+        TextView textForSoundTitle = (TextView) convertView.findViewById(R.id.textForSoundTitle);
+        TextView likesQuantity = (TextView) convertView.findViewById(R.id.likesQuantity);
+        TextView lengthOfTheTrack = (TextView) convertView.findViewById(R.id.lengthOfTheTrack);
+        TextView artistName = (TextView) convertView.findViewById(R.id.artistName);
 
         SoundInfo soundInfoItem = getItem(position);
 

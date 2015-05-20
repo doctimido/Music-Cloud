@@ -17,7 +17,7 @@
                    android:layout_margin="10dp"
                 />
 
-        <EditText android:layout_width="match_parent"
+        <EditText android:layout_width="0dp"
                   android:layout_height="wrap_content"
                   android:hint="Search for the music"
                   android:layout_gravity="center"
@@ -26,7 +26,14 @@
                   android:id="@+id/search_music"
                   android:imeActionLabel="DONE"
                   android:inputType="text"
+                  android:layout_weight="5"
                 />
+        <Button android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:layout_weight="1"
+                android:id="@+id/buttonOk"/>
+
     </LinearLayout>
 
     <ListView android:layout_width="match_parent"

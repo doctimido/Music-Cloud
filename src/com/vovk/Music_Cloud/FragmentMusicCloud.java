@@ -3,24 +3,25 @@ package com.vovk.Music_Cloud;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import com.turbomanage.httpclient.AsyncCallback;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.turbomanage.httpclient.HttpResponse;
 import com.turbomanage.httpclient.ParameterMap;
 import com.turbomanage.httpclient.android.AndroidHttpClient;
-import com.vovk.Music_Cloud.ParseSoundInfo.GetSoundInfoList;
 import com.vovk.Music_Cloud.ParseSoundInfo.SoundInfo;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +32,11 @@ public class FragmentMusicCloud extends Fragment implements Serializable {
 
     private ListView myListView;
     private MyAdapter adapter;
-    private GetSoundInfoList soundInfoList;
     private List<SoundInfo> listSoundInfo;
     private EditText textRequestFromUser;
     //private String serverResponse;
     private String search;
+    private Button buttonOk;
 
 
     @Override
@@ -47,42 +48,36 @@ public class FragmentMusicCloud extends Fragment implements Serializable {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        soundInfoList = new GetSoundInfoList();
         myListView = (ListView) getActivity().findViewById(R.id.myListView);
         textRequestFromUser = (EditText) getActivity().findViewById(R.id.search_music);
-        listSoundInfo = new ArrayList<>();
+        listSoundInfo = new ArrayList<SoundInfo>();
+        buttonOk = (Button) getActivity().findViewById(R.id.buttonOk);
 
-        adapter = new MyAdapter(getActivity(), listSoundInfo);
+        adapter = new MyAdapter(getActivity());
         myListView.setAdapter(adapter);
 
-
-        textRequestFromUser.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                boolean handled = false;
-                textRequestFromUser.setImeActionLabel("DONE", EditorInfo.IME_ACTION_DONE);
-                if (i == EditorInfo.IME_ACTION_DONE) {
+            public void onClick(View v) {
+                if (!textRequestFromUser.getText().toString().isEmpty()) {
                     search = textRequestFromUser.getText().toString();
                     Log.e(Const.TAG, "search = " + search);
                     MyTask myTask = new MyTask();
                     myTask.execute(search);
-                    handled = true;
                 }
-                return handled;
             }
         });
 
 
     }
 
-    public class MyTask extends AsyncTask<String, Void, String> implements Serializable {
+    public class MyTask extends AsyncTask<String, Void, Void> implements Serializable {
 
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Void doInBackground(String... params) {
 
             if (!params[0].isEmpty()) {
-
                 AndroidHttpClient httpClient = new AndroidHttpClient(Const.URL);
                 httpClient.setMaxRetries(5);
                 ParameterMap param = httpClient.newParams()
@@ -90,8 +85,12 @@ public class FragmentMusicCloud extends Fragment implements Serializable {
                         .add("client_id", "b45b1aa10f1ac2941910a7f0d10f8e28");
                 HttpResponse httpResponse = httpClient.get("/tracks.json", param);
                 if (httpResponse.getBodyAsString() != null) {
-                    String s=httpResponse.getBodyAsString();
-                    return s;
+                    Type listType = new TypeToken<List<SoundInfo>>() {
+                    }.getType();
+                    Gson gson = new Gson();
+                    listSoundInfo = gson.fromJson(httpResponse.getBodyAsString(), listType);
+                    Log.e(Const.TAG, "Quantity of object = " + listSoundInfo.size());
+
                 }
             }
 
@@ -99,14 +98,10 @@ public class FragmentMusicCloud extends Fragment implements Serializable {
         }
 
         @Override
-        protected void onPostExecute(String serverResponse) {
-            super.onPostExecute(serverResponse);
-            if (!serverResponse.isEmpty() && serverResponse != null) {
-                listSoundInfo = soundInfoList.getList(serverResponse);
-                Log.e(Const.TAG, "Quantity of object = " + listSoundInfo.size());
-                adapter.notifyDataSetChanged();
-            }
-
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            adapter.clear();
+            adapter.addAll(listSoundInfo);
         }
     }
 }
