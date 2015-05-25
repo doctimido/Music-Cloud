@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
 import com.vovk.Music_Cloud.ParseSoundInfo.SoundInfo;
 
 import java.io.Serializable;
@@ -48,6 +49,8 @@ public class MyAdapter extends ArrayAdapter<SoundInfo> implements Serializable {
             likesQuantity.setText(soundInfoItem.getLikesCount());
             textForSoundTitle.setText(soundInfoItem.getTitle());
             lengthOfTheTrack.setText(soundInfoItem.getDuration());
+            Glide.with(getContext()).load(getItem(position).getArtworkUrl()).into(titlePicture);
+            artistName.setText(soundInfoItem.getSoundName());
         }
 
         return convertView;
